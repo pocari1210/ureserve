@@ -26,3 +26,21 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+// \app\Providers\AuthServiceProviderで作成した
+// 権限付与をルートに設定している
+// middleware(can:第一引数)で入力をすればOK
+Route::prefix('manager')
+->middleware('can:manager-higher')
+->group(function(){
+    Route::get('index', function () {
+        dd('manager');
+    });    
+});
+
+Route::middleware('can:user-higher')
+->group(function(){
+    Route::get('index', function () {
+        dd('user');
+    });
+});

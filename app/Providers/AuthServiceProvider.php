@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Gate;
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * The model to policy mappings for the application.
+     * The policy mappings for the application.
      *
      * @var array<class-string, class-string>
      */
@@ -25,6 +25,17 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('admin', function($user){
+            return $user->role === 1;
+        });
+        // マネージャー権限付与
+        Gate::define('manager-higher', function($user){
+            return $user->role > 0 && $user->role <= 5;
+        });
+        // ユーザー以上権限付与
+        Gate::define('user-higher', function($user){
+            return $user->role > 0 && $user->role <= 9;
+        });
+        
     }
 }
