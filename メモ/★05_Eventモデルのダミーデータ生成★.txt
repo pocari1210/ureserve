@@ -1,0 +1,28 @@
+
+04_Eventモデルのダミーデータ生成
+
+★テーブルの追加★
+C:\xampp\htdocs\ureserve\cms\database\factories\EventFactory.php
+
+★Seederファイル編集★
+C:\xampp\htdocs\ureserve\cms\database\seeders\DatabaseSeeder.php
+
+use App\Models\Event;の読み込み
+
+run()内に
+Event::factory(100)->create();
+を追記し、データを100個作成する。
+
+★fakerの日本語化★
+C:\xampp\htdocs\ureserve\cms\config\app.php
+
+'faker_locale' => 'ja_JP',
+⇒編集が終わった後、下記コマンドでクリアする
+
+　php artisan config:clear
+  php artisan cache:clear
+
+
+
+●DateTimeクラス●
+https://www.php.net/manual/ja/class.datetime.php
