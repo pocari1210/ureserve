@@ -19,10 +19,10 @@ C:\xampp\htdocs\ureserve\cms\config\app.php
 'faker_locale' => 'ja_JP',
 ⇒編集が終わった後、下記コマンドでクリアする
 
-　php artisan config:clear
-  php artisan cache:clear
-
+php artisan config:clear
+php artisan cache:clear
 
 
 ●DateTimeクラス●
 https://www.php.net/manual/ja/class.datetime.php
+

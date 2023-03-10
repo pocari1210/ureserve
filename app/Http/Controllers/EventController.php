@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -16,7 +17,12 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = DB::table('events')
+        ->orderBy('start_date','asc')
+        ->paginate(10);
+
+        return view('manager.events.index',
+        compact('events'));
     }
 
     /**

@@ -1,10 +1,7 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            {{-- ロゴの幅設定 --}}
-            <div class="w-40">
             <x-authentication-card-logo />
-        </div>
         </x-slot>
 
         <x-validation-errors class="mb-4" />

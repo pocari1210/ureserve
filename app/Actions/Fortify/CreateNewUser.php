@@ -30,9 +30,6 @@ class CreateNewUser implements CreatesNewUsers
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            // ★権限付与★
-            // ユーザー登録をすると自動で9が割り振られるようにする
-            'role' => 9
         ]);
     }
 }

@@ -1,0 +1,20 @@
+
+04_権限付与
+
+manager以上でないとないナビゲーションに表示もさせないようにする
+
+<!-- Navigation Links -->
+
+{{-- @canをつけてmanager-higherでないと表示されないようにする--}}
+@can('manager-higher')
+  <x-jet-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.index')">
+      イベント管理
+  </x-jet-nav-link>
+@endcan
+
+★viewsファイルの新規作成★
+\resources\views\manager\events\index.blade.php      
+
+
+
+

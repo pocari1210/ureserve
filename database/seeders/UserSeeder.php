@@ -16,7 +16,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // DB::tableでカッコ内のテーブルを指定
         DB::table('users')->insert([[
             'name' => 'admin',
             'email' => 'admin@admin.com',
