@@ -1865,6 +1865,9 @@ select {
 .min-w-0 {
   min-width: 0px;
 }
+.max-w-2xl {
+  max-width: 42rem;
+}
 .max-w-6xl {
   max-width: 72rem;
 }
@@ -1943,6 +1946,9 @@ select {
 .flex-wrap {
   flex-wrap: wrap;
 }
+.items-end {
+  align-items: flex-end;
+}
 .items-center {
   align-items: center;
 }
@@ -1955,6 +1961,9 @@ select {
 .justify-between {
   justify-content: space-between;
 }
+.justify-around {
+  justify-content: space-around;
+}
 .justify-items-center {
   justify-items: center;
 }
@@ -1966,6 +1975,11 @@ select {
 }
 .gap-6 {
   gap: 1.5rem;
+}
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -3076,11 +3090,11 @@ select {
   .md\:col-span-2 {
     grid-column: span 2 / span 2;
   }
-  .md\:mb-2 {
-    margin-bottom: 0.5rem;
-  }
   .md\:mt-0 {
     margin-top: 0px;
+  }
+  .md\:flex {
+    display: flex;
   }
   .md\:grid {
     display: grid;
@@ -3104,9 +3118,6 @@ select {
 @media (min-width: 1024px) {
   .lg\:col-span-4 {
     grid-column: span 4 / span 4;
-  }
-  .lg\:mb-0 {
-    margin-bottom: 0px;
   }
   .lg\:w-2\/3 {
     width: 66.666667%;

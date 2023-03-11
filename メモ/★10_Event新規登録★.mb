@@ -1,26 +1,37 @@
 
-08_flatpickr日本語設定
-\resources\js\flatpickr.js
+10_event新規作成
 
-// flatpickr日本語対応
-import { Japanese } from "flatpickr/dist/l10n/ja.js"
+resources\views\manager\events\index.blade.php
 
-// flatpickrの時間入力の設定を行う
-const setting = {
-    "locale": Japanese,
-    enableTime: true,
-    noCalendar: true,
-    dateFormat: "H:i",
-    time_24hr: true,
-    minTime: "10:00",
-    maxTime: "20:00",
-    minuteIncrement: 30
-}
+◆新規作成ボタン作成◆
+<button onclick="location.href='{{ route('events.create')}}'" 
+class="flex mb-4 ml-auto text-white bg-indigo-500 
+border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+  新規登録
+</button>
 
-// 第二引数を上で作ったsettingの変数を記述すれば
-// 使用することができる
-flatpickr("#start_time", setting);
-flatpickr("#end_time", setting);
+※解説※
+"location.href='{{ route('events.create')}}'"
+⇒location.hrefで画面の遷移先指定
+
+◆コンポーネント新規作成◆
+resources\views\components\textarea.blade.php
+
+◆storeメソッドでエラーがでたときの対処(403エラー)◆
+\app\Http\Requests\StoreEventRequest.php
+
+    public function authorize()
+    {
+        return true;
+    }
+⇒trueにする必要がある
+
+
+
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+justify-between
+複数ラベルがある場合など一列に中央ぞろえでまとめられる
 
 
 

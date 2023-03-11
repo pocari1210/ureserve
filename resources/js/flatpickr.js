@@ -15,6 +15,7 @@ flatpickr("#calendar", {
     maxDate: new Date().fp_incr(30)
 });
 
+// flatpickrの時間入力の設定を行う
 const setting = {
     "locale": Japanese,
     enableTime: true,
@@ -26,5 +27,7 @@ const setting = {
     minuteIncrement: 30
 }
 
+// 第二引数を上で作ったsettingの変数を記述すれば
+// 使用することができる
 flatpickr("#start_time", setting);
 flatpickr("#end_time", setting);

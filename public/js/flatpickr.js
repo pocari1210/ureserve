@@ -2881,7 +2881,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flatpickr_dist_l10n_ja_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flatpickr/dist/l10n/ja.js */ "./node_modules/flatpickr/dist/l10n/ja.js");
 /* harmony import */ var flatpickr_dist_l10n_ja_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_l10n_ja_js__WEBPACK_IMPORTED_MODULE_1__);
 
+// flatpickr日本語対応
 
+
+// minDateで今日以降の日付でないと入力できないようにする
 (0,flatpickr__WEBPACK_IMPORTED_MODULE_0__["default"])("#event_date", {
   "locale": flatpickr_dist_l10n_ja_js__WEBPACK_IMPORTED_MODULE_1__.Japanese,
   minDate: "today",
@@ -2892,6 +2895,8 @@ __webpack_require__.r(__webpack_exports__);
   // minDate: "today",
   maxDate: new Date().fp_incr(30)
 });
+
+// flatpickrの時間入力の設定を行う
 var setting = {
   "locale": flatpickr_dist_l10n_ja_js__WEBPACK_IMPORTED_MODULE_1__.Japanese,
   enableTime: true,
@@ -2902,6 +2907,9 @@ var setting = {
   maxTime: "20:00",
   minuteIncrement: 30
 };
+
+// 第二引数を上で作ったsettingの変数を記述すれば
+// 使用することができる
 (0,flatpickr__WEBPACK_IMPORTED_MODULE_0__["default"])("#start_time", setting);
 (0,flatpickr__WEBPACK_IMPORTED_MODULE_0__["default"])("#end_time", setting);
 })();
