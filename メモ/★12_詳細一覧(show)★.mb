@@ -1,0 +1,63 @@
+
+11_詳細一覧
+
+◆routeの追加◆
+\resources\views\manager\events\index.blade.php
+
+$event->nameにaタグをつけ、遷移させる
+
+<a href="{{ route('events.show', [ 'event' => $event->id ])}}">
+    {{ $event->name }}
+</a>
+
+$event->idでクリックしたIDの情報を取得している
+
+◆showファイル編集◆
+\resources\views\manager\events\show.blade.php
+
+{!! nl2br(e($event->information)) !!}
+⇒textareaで改行をできるようにする
+
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+★アクセサの実装★
+
+◆Modelの編集◆
+\app\Models\Event.php
+
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Carbon\Carbon;
+
+    protected function eventDate(): Attribute
+    {
+        return new Attribute(
+            get: fn() => Carbon::parse($this->start_date)->format('Y年m月d日')
+        );
+    }
+
+    protected function startTime(): Attribute
+    {
+        return new Attribute(
+            get: fn() => Carbon::parse($this->start_date)->format('H時i分')
+        );
+    }
+
+    protected function endTime(): Attribute
+    {
+        return new Attribute(
+            get: fn() => Carbon::parse($this->end_date)->format('H時i分')
+        );
+    }
+
+コード解説
+parseとすると日付を取得する
+formatで表示したい形式を入力する
+$thisはEventモデルをさす。
+
+◆コントローラー編集◆
+\app\Http\Controllers\EventController.php(showメソッド)
+
+$eventDate = $event->eventDate;
+$startTime = $event->startTime;
+$endTime = $event->endTime;
+

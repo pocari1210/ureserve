@@ -1,5 +1,5 @@
 
-10_event新規作成
+11_登録処理
 
 ◆バリデーション 日本語化◆
 \lang\ja\validation.php
@@ -45,5 +45,5 @@ $endDate = Carbon::createFromFormat( 'Y-m-d H:i', $end );
 ・joinDateAndTime
 
 ◆コントローラー編集◆
-\app\Http\Controllers\EventController.php
+\app\Http\Controllers\EventController.php（store）
 
