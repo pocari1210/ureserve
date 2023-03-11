@@ -1,0 +1,40 @@
+
+04_権限付与
+
+新規作成
+resources\views\manager\events\index.blade.php
+
+\resources\views\dashboard.blade.phpの中身を
+貼り付ける
+
+tailblockを用いる
+
+★ダミーデータの挿入★
+
+★viewにダミーデータを渡す
+
+<tbody>
+@foreach($events as $event)
+<tr>
+<td class="text-blue-500 px-4 py-3"><a href="{{ route('events.show', [ 'event' => $event->id ])}}">{{ $event->name }}</a></td>
+<td class="px-4 py-3">{{ $event->start_date }}</td>
+<td class="px-4 py-3">{{ $event->end_date }}</td>
+<td class="px-4 py-3">後ほど</td>
+<td class="px-4 py-3">{{ $event->max_people }}</td>
+<td class="px-4 py-3">{{ $event->is_visible }}</td>
+</tr>
+@endforeach
+</tbody>
+
+★ページネート
+
+ページネーションを日本語化する
+php artisan vendor:publish --tag=laravel-pagination
+
+</table>
+{{ $events->links() }}
+
+
+
+
+

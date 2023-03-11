@@ -1,0 +1,27 @@
+
+08_flatpickr
+
+
+★インストール(Mix)★
+
+コマンド
+npm i flatpickr@^4 --save
+
+●resources/js/flatpickr.js(新規作成)
+import flatpickr from "flatpickr";
+flatpickr("#event_date", {});
+
+●resources/css/app.css
+@import 'flatpickr/dist/flatpickr.css';
+
+●webpack.mix.js
+.js('resources/js/flatpickr.js', 'public/js')
+
+◆createメソッド追記◆
+C:\xampp\htdocs\ureserve\cms\app\Http\Controllers\EventController.php
+
+
+
+
+
+
