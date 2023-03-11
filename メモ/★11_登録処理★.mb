@@ -1,0 +1,49 @@
+
+10_event新規作成
+
+◆バリデーション 日本語化◆
+\lang\ja\validation.php
+
+◆"Whoops! Something went wrong."の日本語化◆
+\cms\lang\ja.json
+
+◆フォームリクエスト◆
+app\Http\Requests\StoreEventRequest.php
+
+
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+★保存処理★
+
+◆Modelの編集◆
+app\Models\Event.php
+
+protected $fillable内にテーブルで作成したものを追記（ホワイトリスト）
+※テーブルとモデルで内容を同じにする必要がある
+
+◆コントローラーの編集◆
+app\Http\Controllers\EventController.php
+
+// 日付と開始時刻を連結させ、DBに保存させる必要がある
+
+$start = $request['event_date'] . " " . $request['start_time']; 
+$startDate = Carbon::createFromFormat( 'Y-m-d H:i', $start );
+        
+end = $request['event_date'] . " " . $request['end_time']; 
+$endDate = Carbon::createFromFormat( 'Y-m-d H:i', $end );
+
+
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+★サービスへの切り離し★
+
+
+◆下記のメソッドを作成◆
+\app\Services\EventService.php(新規作成)
+
+・checkEventDuplication
+・joinDateAndTime
+
+◆コントローラー編集◆
+\app\Http\Controllers\EventController.php
+
