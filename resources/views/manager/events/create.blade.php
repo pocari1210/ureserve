@@ -12,4 +12,5 @@
             </div>
         </div>
     </div>
+    <script src="{{ mix('js/flatpickr.js')}}"></script>
 </x-app-layout>
