@@ -1,6 +1,8 @@
 import flatpickr from "flatpickr";
+// flatpickr日本語対応
 import { Japanese } from "flatpickr/dist/l10n/ja.js"
 
+// minDateで今日以降の日付でないと入力できないようにする
 flatpickr("#event_date", {
     "locale": Japanese,
     minDate: "today",

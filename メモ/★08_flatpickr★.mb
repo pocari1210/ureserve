@@ -13,6 +13,7 @@ flatpickr("#event_date", {});
 
 ●resources/css/app.css
 @import 'flatpickr/dist/flatpickr.css';
+※一番上に書く
 
 ●webpack.mix.js
 .js('resources/js/flatpickr.js', 'public/js')
