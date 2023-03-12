@@ -1,0 +1,77 @@
+
+13_イベント更新
+
+◆ルールの編集◆
+C:\xampp\htdocs\ureserve\cms\app\Http\Requests\UpdateEventRequest.php
+
+    public function authorize()
+    {
+        return true;
+    }
+
+⇒authorizeはtrueにしないとバリデーションが通らない
+
+    public function rules()
+    {
+        return [
+            'event_name' => ['required', 'max:50'],
+            'information' => ['required', 'max:200'],
+            'event_date' => ['required', 'date'],
+            'start_time' => ['required'],
+            'end_time' => ['required', 'after:start_time'],
+            'max_people' => ['required', 'numeric', 'between:1,20'],
+            'is_visible' => ['required', 'boolean']
+        ];
+    }
+
+⇒StoreEventRequestと同じ
+
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+◆コントローラー編集(update)◆
+\app\Http\Controllers\EventController.php
+
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+◆updateのアクセサ・重複チェック作成◆
+\app\Models\Event.php
+
+    protected function editEventDate(): Attribute
+    {
+        return new Attribute(
+            get: fn() => Carbon::parse($this->start_date)->format('Y-m-d')
+        );
+    }
+
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+◆viewファイルの編集◆
+\resources\views\manager\events\edit.blade.php
+
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+◆countEventDuplication追記◆
+C:\xampp\htdocs\ureserve\cms\app\Services\EventService.php
+
+数を数えるメソッドを作成
+
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+◆コントローラー編集(update)◆
+\app\Http\Controllers\EventController.php
+
+下記のコードにすることで、重複の数を数えられる
+$check = EventService::countEventDuplication
+
+
+
+
+
+
+
+
+
+
+
+
+

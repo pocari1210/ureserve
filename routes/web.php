@@ -33,9 +33,15 @@ Route::middleware([
 // \app\Providers\AuthServiceProviderで作成した
 // 権限付与をルートに設定している
 // middleware(can:第一引数)で入力をすればOK
+
+// ルーティングは上から処理される 
+// リソースの下に書くと /past部分がパラメータと勘違いされるので 
+// リソースの上に書く
+
 Route::prefix('manager')
 ->middleware('can:manager-higher')
 ->group(function(){
+    Route::get('events/past', [EventController::class, 'past'])->name('events.past');
     Route::resource('events', EventController::class);
 
 });

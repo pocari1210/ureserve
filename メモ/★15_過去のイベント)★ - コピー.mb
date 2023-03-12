@@ -1,0 +1,80 @@
+
+13_イベント更新
+
+◆routeの追記◆
+\routes\web.php
+
+Route::prefix('manager')
+->middleware('can:manager-higher')
+->group(function(){
+　　　↓追記
+    Route::get('events/past', [EventController::class, 'past'])->name('events.past');
+    Route::resource('events', EventController::class);
+
+});
+
+※注意事項※
+
+ルーティングは上から処理される 
+リソースの下に書くと /past部分がパラメータと勘違いされるので 
+リソースの上に書く
+
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+◆pastメソッドの作成◆
+C:\xampp\htdocs\ureserve\cms\app\Http\Controllers\EventController.php
+
+     public function past()
+     {
+        // 本日の日付取得
+        $today = Carbon::today();
+        $events=DB::table('events')
+        
+        // 開始日から今日の日付までのイベントを抽出
+        ->whereDate('start_date','<',$today)
+
+        // 開始時刻で降順で並び替える
+        ->orderBy('start_date','desc')
+
+        // ページネートは10件ずつ表示
+        ->paginate(10);
+
+        return view('manager.events.past',compact('events'));
+
+     }
+
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+◆本日より前なら編集ボタンを削除する◆
+\resources\views\manager\events\show.blade.php
+
+{{-- if文で本日より前のイベントの場合編集ボタンを表示しない --}}
+  @if($event->eventDate >= \Carbon\Carbon::today()->format('Y年m月d日') )
+    <x-button class="ml-4">
+      編集する
+    </x-button>
+  @endif
+
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+◆indexページで本日以降のイベントのみを抽出する(indexメソッド)◆
+\app\Http\Controllers\EventController.php
+
+    public function index()
+    {
+        // ★本日の日付を取得★
+        $today = Carbon::today();
+
+        $events = DB::table('events')
+        // ★本日以降の開始日を抽出★
+        ->whereData('start_date','>=',$today)
+        ->orderBy('start_date','asc')
+        ->paginate(10);
+
+        return view('manager.events.index',
+        compact('events'));
+    }
+
+
+
+

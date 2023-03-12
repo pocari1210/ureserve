@@ -56,11 +56,12 @@
                           非表示
                         @endif
                       </div>
-                      @if($event->eventDate >= \Carbon\Carbon::today()->format('Y年m月d日') )
-                      <x-button class="ml-4">
-                          編集する
-                      </x-button>
-                      @endif
+{{-- if文で本日より前のイベントの場合編集ボタンを表示しない --}}
+@if($event->eventDate >= \Carbon\Carbon::today()->format('Y年m月d日') )
+<x-button class="ml-4">
+    編集する
+</x-button>
+@endif
                   </div>
               </form>
               </div>
