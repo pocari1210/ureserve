@@ -2890,6 +2890,8 @@ __webpack_require__.r(__webpack_exports__);
   minDate: "today",
   maxDate: new Date().fp_incr(30)
 });
+
+// カレンダー用のフラットピッカー追記
 (0,flatpickr__WEBPACK_IMPORTED_MODULE_0__["default"])("#calendar", {
   "locale": flatpickr_dist_l10n_ja_js__WEBPACK_IMPORTED_MODULE_1__.Japanese,
   // minDate: "today",
@@ -2905,6 +2907,7 @@ var setting = {
   time_24hr: true,
   minTime: "10:00",
   maxTime: "20:00",
+  // 30分単位で時間を増やすしようにする
   minuteIncrement: 30
 };
 

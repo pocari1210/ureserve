@@ -27,9 +27,10 @@ const setting = {
 php artisan make:livewire Calendar
 
 下記コマンドが生成される
+
 app/Http/Livewire/Calendar.php 
 resources/views/livewire/calender.blade.php 
-下記コマンドが生成される
+
 
 ・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
 

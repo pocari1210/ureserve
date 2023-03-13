@@ -35,10 +35,10 @@ class Calendar extends Component
         $this->events = EventService::getWeekEvents(
             $this->currentDate->format('Y-m-d'),
             $this->sevenDaysLater->format('Y-m-d'),
-        );        
+        );
 
         // 1週間文の日付を取得
-        for($i=0; $i<7; $i++){
+        for($i = 0; $i < 7; $i++){
 
             // 今日の日付から7日分のデータを取得
             $this->day =CarbonImmutable::today()->addDays($i)->format('m月d日');
@@ -48,7 +48,6 @@ class Calendar extends Component
         }
 
     }
-
         // dd($this->currentWeek);
 
         public function getDate($date)
