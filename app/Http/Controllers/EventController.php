@@ -22,11 +22,25 @@ class EventController extends Controller
         // ★本日の日付を取得★
         $today = Carbon::today();
 
+        // ★予約した人数をevent_id毎に抽出している
+        $reservedPeople = DB::table('reservations')
+        ->select('event_id', DB::raw('sum(number_of_people) as number_of_people'))
+        ->whereNull('canceled_date')
+        ->groupBy('event_id');
+        // dd($reservedPeople);
+
         $events = DB::table('events')
+        // 
+        ->leftJoinSub($reservedPeople, 'reservedPeople', 
+        function($join){ 
+            // events.idとreservedPeople.event_idを紐づけている
+            $join->on('events.id', '=', 'reservedPeople.event_id'); 
+        })
         // ★本日以降の開始日を抽出★
         ->whereDate('start_date','>=',$today)
         ->orderBy('start_date','asc')
         ->paginate(10);
+
 
         return view('manager.events.index',
         compact('events'));
@@ -102,6 +116,22 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($event->id);
 
+        // イベントに紐づくユーザー情報を取得
+        $users = $event->users;
+
+        $reservations = [];
+
+        foreach($users as $user)
+        {
+            $reservedInfo = [
+                'name' => $user->name,
+                'number_of_people' => $user->pivot->number_of_people,
+                'canceled_date' =>  $user->pivot->canceled_date
+            ];
+            array_push($reservations, $reservedInfo);
+        }
+        // dd($reservations);
+
         $eventDate = $event->eventDate;
         $startTime = $event->startTime;
         $endTime = $event->endTime;
@@ -109,7 +139,7 @@ class EventController extends Controller
         
 
         return view('manager.events.show',
-        compact('event', 'eventDate', 'startTime', 'endTime'));
+        compact('event', 'users', 'reservations','eventDate', 'startTime', 'endTime'));
     }
 
     /**
@@ -120,12 +150,22 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
+        // 対象のイベントのIDを取得
+        $event = Event::findOrFail($event->id);
+
+        $today = Carbon::today()->format('Y年m月d日');
+
+        // 本日より前のイベントの場合、中断処理をする
+        if($event->eventDate < $today ){
+            return abort(404);
+        }
+
         $eventDate = $event->editEventDate;
         $startTime = $event->startTime;
         $endTime = $event->endTime;
 
         return view('manager.events.edit',
-        compact('event', 'eventDate', 'startTime', 'endTime'));        
+        compact('event','eventDate', 'startTime', 'endTime'));        
     }
 
     /**
@@ -181,7 +221,17 @@ class EventController extends Controller
      {
         // 本日の日付取得
         $today = Carbon::today();
+        $reservedPeople = DB::table('reservations')
+        ->select('event_id', DB::raw('sum(number_of_people) as number_of_people'))
+        ->whereNull('canceled_date')
+        ->groupBy('event_id');
+
         $events=DB::table('events')
+
+        // 予約人数の表示
+        ->leftJoinSub($reservedPeople, 'reservedPeople', function($join){
+            $join->on('events.id', '=', 'reservedPeople.event_id');
+        })        
         
         // 開始日から今日の日付までのイベントを抽出
         ->whereDate('start_date','<',$today)

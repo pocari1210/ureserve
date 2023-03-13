@@ -1,0 +1,52 @@
+
+20_予約情報(リレーション設定)
+
+キャンセルされたものについては表示をしないものとする
+
+◆モデルの編集◆
+\app\Models\Event.php
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'reservations')
+        ->withPivot('id', 'number_of_people', 'canceled_date');
+
+    }
+
+User::class
+EventからUserを見れるようにする
+
+\app\Models\User.php
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'reservations')
+        ->withPivot('id', 'number_of_people', 'canceled_date');
+    }
+
+Event::class
+UserからEventを見れるようにしている
+
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+◆コントローラーの設置◆
+C:\xampp\htdocs\ureserve\cms\app\Http\Controllers\EventController.php
+
+        $reservations = [];
+
+        foreach($users as $user)
+        {
+            $reservedInfo = [
+                'name' => $user->name,
+                'number_of_people' => $user->pivot->number_of_people,
+                'canceled_date' =>  $user->pivot->canceled_date
+            ];
+            array_push($reservations, $reservedInfo);
+        }
+        dd($reservations);
+
+★コード解説★
+array_pushとは、配列の最後に1つ以上の要素を追加したい時に使用する関数
+array_push(追加先の配列,追加する値1,追加する値2,…)
+
+

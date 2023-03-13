@@ -1,0 +1,32 @@
+
+17_イベント更新
+
+複数のユーザーが複数のイベントを予約することが
+できる仕様にする
+多対多のテーブル関係
+
+中間(pivotテーブルをはさみ
+１対多
+
+◆モデルとマイグレーション作成◆
+php artisan make:model Reservation -m
+
+◆モデルの編集◆
+\app\Models\Reservation.php
+
+◆マイグレーション(テーブル)の編集◆
+\database\migrations\2023_03_12_175707_create_reservations_table.php
+
+◆ダニーデータ作成◆
+php artisan make:Seed ReservationSeeder
+
+◆DatabaseSeederを編集し、ダミーデータの挿入◆
+\database\seeders\DatabaseSeeder.php
+
+※リレーション設定のないものからダミーデーターを作る必要が
+　ある
+
+
+
+
+

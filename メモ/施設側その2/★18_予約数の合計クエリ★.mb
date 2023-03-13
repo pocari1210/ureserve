@@ -1,0 +1,31 @@
+
+18_予約数の合計クエリ
+
+SQL文を直接使う場合はDB::rawを使うことでSQL文を生成出来る。
+
+$reservedPeople = DB::table('reservations') 
+->select('event_id', DB::raw('sum(number_of_people) as number_of_people')) 
+->groupBy(ʻevent_idʼ);
+
+内部結合(JoinSub)・・合計人数がない場合データが表示されない 
+外部結合(leftJoinSub)・・合計人数がない場合、nullとして表示される
+
+◆外部結合◆
+
+
+$events = DB::table('events') 
+->leftJoinSub($reservedPeople, 'reservedPeople', 
+function($join){ 
+ $join->on('events.id', '=', 'reservedPeople.event_id'); 
+ }) 
+ ->whereDate('events.start_date', '<' , $today) 
+ ->orderBy('events.start_date', 'asc') 
+ ->paginate(10);
+
+コード解説
+
+$join->on('events.id', '=', 'reservedPeople.event_id');
+⇒events.idとreservedPeople.event_idを紐づけている
+
+
+

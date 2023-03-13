@@ -9,11 +9,14 @@ flatpickr("#event_date", {
     maxDate: new Date().fp_incr(30)
 });
 
+// カレンダー用のフラットピッカー追記
 flatpickr("#calendar", {
     "locale": Japanese,
     // minDate: "today",
     maxDate: new Date().fp_incr(30)
 });
+
+
 
 // flatpickrの時間入力の設定を行う
 const setting = {
@@ -24,6 +27,7 @@ const setting = {
     time_24hr: true,
     minTime: "10:00",
     maxTime: "20:00",
+    // 30分単位で時間を増やすしようにする
     minuteIncrement: 30
 }
 

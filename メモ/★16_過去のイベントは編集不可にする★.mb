@@ -1,0 +1,21 @@
+
+13_イベント更新
+
+◆コントローラーの編集(edit)◆
+\app\Http\Controllers\EventController.php
+
+    public function edit(Event $event)
+    {
+        // 対象のイベントのIDを取得
+        $event = Event::findOrFail($event->id);
+
+        $today = Carbon::today()->format('Y年m月d日');
+
+        // 本日より前のイベントの場合、中断処理をする
+        if($event->eventDate < $today ){
+            return abort(404);
+        }
+
+
+
+

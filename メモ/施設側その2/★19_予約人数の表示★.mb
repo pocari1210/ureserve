@@ -1,0 +1,22 @@
+
+19_予約人数の表示
+
+◆ビューの編集◆
+\resources\views\manager\events\index.blade.php
+\resources\views\manager\events\past.blade.php
+
+後ほどと書いてあった場所を編集する
+
+<td class="px-4 py-3"> 
+  @if(is_null($event->number_of_people)) 
+   0 
+  @else 
+   {{ $event->number_of_people }} 
+  @endif 
+</td>
+
+解説
+is_nullというPHPのコードをつかってNull判定を行っている
+
+
+

@@ -16,8 +16,9 @@ use App\Http\Controllers\EventController;
 |
 */
 
+// 画面を立ち上げたときに最初に開かれる
 Route::get('/', function () {
-    return view('welcome');
+    return view('calendar');
 });
 
 Route::middleware([
